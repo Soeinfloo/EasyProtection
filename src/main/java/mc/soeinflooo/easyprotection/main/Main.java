@@ -12,10 +12,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public final class Main extends JavaPlugin {
 
-    FileConfiguration config = getConfig();
+
     private static Main plugin;
     public static File f;
     public static FileConfiguration cfg;
@@ -56,7 +57,7 @@ public final class Main extends JavaPlugin {
     }
 
     private void addCommands() {
-        getCommand("easyprotect").setExecutor(new passwordChange());
+        Objects.requireNonNull(getCommand("easyprotect")).setExecutor(new passwordChange());
 
     }
     private void config() {
@@ -73,9 +74,10 @@ public final class Main extends JavaPlugin {
         try {
             cfg.save(f);
         } catch (IOException ex) {
-        };
+            //
+        }
 
-        prefix = cfg.getString("Prefix").replaceAll("&", "§");
+        prefix = Objects.requireNonNull(cfg.getString("Prefix")).replaceAll("&", "§");
         password = cfg.getString("Password");
     }
     public static Main getPlugin() {return plugin;}
