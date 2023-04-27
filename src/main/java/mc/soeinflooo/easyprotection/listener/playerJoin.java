@@ -2,30 +2,24 @@ package mc.soeinflooo.easyprotection.listener;
 
 import mc.soeinflooo.easyprotection.main.Main;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.format.TextColor;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-
-import java.io.File;
-import java.io.IOException;
+import java.util.Objects;
 
 public class playerJoin implements Listener {
 
     @EventHandler
     public void onServerJoin(PlayerJoinEvent e) {
-        Player p = (Player) e.getPlayer();
+        Player p = e.getPlayer();
         String whitelist = "no";
 
         PersistentDataContainer pdc = p.getPersistentDataContainer();
@@ -44,13 +38,8 @@ public class playerJoin implements Listener {
             );
             p.setGameMode(GameMode.ADVENTURE);
             p.setInvulnerable(true);
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
-                @Override
-                public void run() {
-                    p.kick(Component.newline().content(Main.prefix+"Time has run out!"));
-                }
-            }, 600L); //20 Tick (1 Second) delay before run() is called
-        } else if (pdc.get(pdc_key, PersistentDataType.STRING).equals("no")) {
+            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () -> p.kick(Component.newline().content(Main.prefix+"Time has run out!")), 600L); //20 Tick (1 Second) delay before run() is called
+        } else if (Objects.equals(pdc.get(pdc_key, PersistentDataType.STRING), "no")) {
             p.sendMessage(
                     "§e****************************************************************\n" +
                             Main.prefix+"This server runs  'EasyProtection'!\n" +
@@ -61,12 +50,7 @@ public class playerJoin implements Listener {
             );
             p.setGameMode(GameMode.ADVENTURE);
             p.setInvulnerable(true);
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
-                @Override
-                public void run() {
-                    p.kick(Component.newline().content(Main.prefix+"Time has run out!"));
-                }
-            }, 600L); //20 Tick (1 Second) delay before run() is called
+            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () -> p.kick(Component.newline().content(Main.prefix+"Time has run out!")), 600L); //20 Tick (1 Second) delay before run() is called
         }
     }
 }
