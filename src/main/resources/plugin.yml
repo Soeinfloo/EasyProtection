@@ -1,0 +1,8 @@
+name: EasyProtection
+version: '${project.version}'
+main: mc.soeinflooo.easyprotection.main.Main
+api-version: 1.19
+commands:
+  easyprotect:
+    aliases: ep
+    description: "Command to change the Server Password"
