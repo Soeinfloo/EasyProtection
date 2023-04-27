@@ -27,7 +27,7 @@ public class playerChat implements Listener {
         PersistentDataContainer pdc = p.getPersistentDataContainer();
         NamespacedKey pdc_key = new NamespacedKey(Main.getPlugin(), "whitelist");
         //FileConfiguration config = Main.getPlugin().getConfig();
-        if (!(Objects.equals(pdc.get(pdc_key, PersistentDataType.STRING), "yes"))) {
+        if (!((pdc.get(pdc_key, PersistentDataType.STRING).equals("yes")))) {
             e.setCancelled(true);
             if (plain.equals(Main.password)) {
                 String whitelist = "yes";
