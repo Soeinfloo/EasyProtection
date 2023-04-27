@@ -25,7 +25,7 @@ public class passwordChange implements CommandExecutor {
                     for (int i = 1; i < args.length; i++) {
                         result.append(" ").append(args[i]);
                     }
-                    Main.cfg.set("Password", result);
+                    Main.cfg.set("Password", result.toString());
                     try {
                         Main.cfg.save(Main.f);
                     } catch (IOException e) {
